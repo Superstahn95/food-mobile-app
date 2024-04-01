@@ -13,6 +13,7 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { StyleSheet, Text, View } from "react-native";
 import WelcomeScreen from "./screens/WelcomeScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 export default function App() {
   let [fontsLoaded] = useFonts({

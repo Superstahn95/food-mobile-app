@@ -28,11 +28,11 @@ function WelcomeScreen() {
             {/* "#f57f17"  */}
             <Image
               style={styles.logo}
-              source={require("../assets/images/Rooku.jpg")}
+              source={require("../assets/images/rooku.png")}
             />
             {/* <Ionicons name="fast-food" size={50} color="#f57f17" /> */}
           </View>
-          <Text style={styles.welcomeText}>FIND FOOD YOU LOVE </Text>
+          {/* <Text style={styles.welcomeText}>FIND FOOD YOU LOVE </Text> */}
           <Text style={styles.subtitle}>
             Discover the best food from over 200 varieties and delivery to your
             doorstep
@@ -41,9 +41,9 @@ function WelcomeScreen() {
             <TouchableOpacity style={styles.logIn}>
               <Text style={styles.loginText}>Log in</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.register}>
+            {/* <TouchableOpacity style={styles.register}>
               <Text style={styles.registerText}>Get started</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </ImageBackground>
@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "white",
+    // backgroundColor: "white",
   },
   welcomeText: {
-    color: "#1E293B",
+    color: "white",
     fontSize: 25,
     fontWeight: "bold",
     fontFamily: "Montserrat_700Bold",
@@ -91,10 +91,10 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: "Montserrat_400Regular",
     marginTop: "5%",
-    color: "#e65100",
-    fontWeight: "bold",
+    color: "white",
     fontSize: 20,
     textAlign: "center",
+    textTransform: "capitalize",
   },
   logoContainer: {
     // marginTop: "20%",
