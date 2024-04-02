@@ -1,3 +1,7 @@
+import { useState } from "react";
+import Loader from "../components/Loader";
+import axiosInstance from "../utils/axios";
+import axios from "axios";
 import {
   View,
   Text,
@@ -7,9 +11,30 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleLogin = async () => {
+    console.log("trying to submit");
+    console.log(email, password);
+    if (!email || !password) {
+      return console.log("Fields cannot be blank");
+    }
+    setLoading(true);
+    try {
+      const { data } = await axiosInstance.post("auth/login", {
+        email,
+        password,
+      });
+      console.log(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -23,13 +48,19 @@ const LoginScreen = () => {
 
       <View style={styles.formContainer}>
         <Text style={styles.formText}>Email Address</Text>
-        <TextInput style={styles.formInput} />
+        <TextInput
+          style={styles.formInput}
+          onChangeText={(text) => setEmail(text)}
+        />
       </View>
       <View style={styles.formContainer}>
         <Text style={styles.formText}>Password</Text>
-        <TextInput style={styles.formInput} />
+        <TextInput
+          style={styles.formInput}
+          onChangeText={(text) => setPassword(text)}
+        />
       </View>
-      <TouchableOpacity style={styles.formButton}>
+      <TouchableOpacity onPress={handleLogin} style={styles.formButton}>
         <Text style={styles.formButtonText}>Log in</Text>
       </TouchableOpacity>
       <View style={styles.instructionWrapper}>
@@ -38,6 +69,7 @@ const LoginScreen = () => {
           <Text style={styles.signUpText}>Sign up</Text>
         </TouchableOpacity>
       </View>
+      {loading && <Loader text={"Authenticating"} />}
     </SafeAreaView>
   );
 };
@@ -47,6 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "white",
+    // position: "relative",
   },
   logoContainer: {
     marginVertical: 20,
@@ -70,10 +103,8 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_400Regular",
   },
   formInput: {
-    // borderWidth: 1,
     borderBottomWidth: 1,
     borderColor: "#e65100",
-    // backgroundColor: "red",    height: 40,
   },
   formButton: {
     marginTop: 40,

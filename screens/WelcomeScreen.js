@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   subtitle: {
-    fontFamily: "Montserrat_400Regular",
+    fontFamily: "Montserrat_700Bold",
     marginTop: "5%",
     color: "white",
     fontSize: 20,

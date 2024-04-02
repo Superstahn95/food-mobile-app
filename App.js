@@ -14,6 +14,7 @@ import {
 import { StyleSheet, Text, View } from "react-native";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -30,7 +31,7 @@ export default function App() {
   }
 
   return (
-    <WelcomeScreen />
+    <LoginScreen />
     // <View style={styles.container}>
     //   <Text style={styles.text}>Welcome to react native</Text>
     //   <StatusBar style="auto" />
