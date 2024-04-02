@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
 
-function WelcomeScreen() {
+function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -38,7 +38,10 @@ function WelcomeScreen() {
             doorstep
           </Text>
           <View style={styles.controls}>
-            <TouchableOpacity style={styles.logIn}>
+            <TouchableOpacity
+              style={styles.logIn}
+              onPress={() => navigation.navigate("Login")}
+            >
               <Text style={styles.loginText}>Log in</Text>
             </TouchableOpacity>
             {/* <TouchableOpacity style={styles.register}>

@@ -11,7 +11,7 @@ import React from "react";
 
 // form inputs are to be replaced with formik
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -44,7 +44,7 @@ const RegisterScreen = () => {
       </TouchableOpacity>
       <View style={styles.instructionWrapper}>
         <Text style={styles.instruction}>Already have an account? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text style={styles.signUpText}>Sign in</Text>
         </TouchableOpacity>
       </View>

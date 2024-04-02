@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ const LoginScreen = () => {
       </TouchableOpacity>
       <View style={styles.instructionWrapper}>
         <Text style={styles.instruction}>Don't have an account? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text style={styles.signUpText}>Sign up</Text>
         </TouchableOpacity>
       </View>
