@@ -1,7 +1,4 @@
-import { useState } from "react";
-import Loader from "../components/Loader";
-import axiosInstance from "../utils/axios";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,13 +8,16 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import Loader from "../components/Loader";
+import axiosInstance from "../utils/axios";
+import useAuth from "../hooks/auth";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { setUser, user } = useAuth();
   const handleLogin = async () => {
-    console.log("trying to submit");
     console.log(email, password);
     if (!email || !password) {
       return console.log("Fields cannot be blank");
@@ -29,12 +29,22 @@ const LoginScreen = ({ navigation }) => {
         password,
       });
       console.log(data);
+      setUser(data.data.user);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
+      console.log(error);
+      // handle error in a better way
+      //   error.response.data.message to access the error message from my backend
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigation.navigate("Home");
+    }
+  }, [user]);
+  console.log(user);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -69,6 +79,14 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.signUpText}>Sign up</Text>
         </TouchableOpacity>
       </View>
+      {/* to be removed when app is further worked on */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Home")}
+        style={{ marginTop: 20, backgroundColor: "yellow" }}
+      >
+        <Text>Temporary click action to home screen!!</Text>
+        <Text>{user?.firstName}</Text>
+      </TouchableOpacity>
       {loading && <Loader text={"Authenticating"} />}
     </SafeAreaView>
   );
