@@ -80,13 +80,13 @@ const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {/* to be removed when app is further worked on */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate("Home")}
         style={{ marginTop: 20, backgroundColor: "yellow" }}
       >
         <Text>Temporary click action to home screen!!</Text>
         <Text>{user?.firstName}</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       {loading && <Loader text={"Authenticating"} />}
     </SafeAreaView>
   );
