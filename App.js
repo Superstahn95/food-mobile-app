@@ -14,14 +14,15 @@ import {
   Montserrat_300Light,
 } from "@expo-google-fonts/montserrat";
 import { StyleSheet, Text, View } from "react-native";
+import { Provider } from "react-redux";
+import store from "./app/store";
 import AuthProvider from "./context/auth";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
 import MealScreen from "./screens/MealScreen";
-import { Provider } from "react-redux";
-import store from "./app/store";
+import CategoryScreen from "./screens/CategoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -69,21 +70,14 @@ export default function App() {
               component={MealScreen}
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="Category"
+              component={CategoryScreen}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </AuthProvider>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    color: "white",
-  },
-});
