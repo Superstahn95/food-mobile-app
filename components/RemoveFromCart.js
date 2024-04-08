@@ -1,17 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { colors } from "../utils/constants";
-import { addToCart, removeItemFromCart } from "../features/cart/cartSlice";
+import { removeItemFromCart } from "../features/cart/cartSlice";
 
-const AddToCart = ({ meal, quantity }) => {
+const RemoveFromCart = ({ meal }) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => dispatch(addToCart({ ...meal, quantity }))}
+        onPress={() => dispatch(removeItemFromCart(meal._id))}
       >
-        <Text style={styles.buttonText}>Add To Basket</Text>
+        <Text style={styles.buttonText}>Remove From Basket</Text>
       </TouchableOpacity>
     </View>
   );
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    backgroundColor: colors.COLOR_PRIMARY,
+    backgroundColor: "black",
     bottom: 0,
     width: 300,
     alignItems: "center",
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddToCart;
+export default RemoveFromCart;

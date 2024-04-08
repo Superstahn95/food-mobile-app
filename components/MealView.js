@@ -7,13 +7,20 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { useSelector } from "react-redux";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { colors } from "../utils/constants";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 import AddToCart from "./AddToCart";
+import RemoveFromCart from "./RemoveFromCart";
 
 const { height, width } = Dimensions.get("window");
 const MealView = ({ meal, quantity, setQuantity, navigation }) => {
+  const { cartItems } = useSelector((state) => state.cart);
+  const isItemInCart = (itemId) => {
+    return cartItems.some((item) => item._id === itemId);
+  };
+  const itemExistInCart = isItemInCart(meal._id);
   return (
     <View style={styles.container}>
       <View style={styles.mealImageContainer}>
@@ -65,8 +72,12 @@ const MealView = ({ meal, quantity, setQuantity, navigation }) => {
 
         {/* get meals that belongs to the same category */}
       </View>
-      {/* add to cart button component */}
-      <AddToCart meal={meal} />
+      {/* add  to cart or remove from cart  button component */}
+      {itemExistInCart ? (
+        <RemoveFromCart meal={meal} quantity={quantity} />
+      ) : (
+        <AddToCart meal={meal} quantity={quantity} />
+      )}
     </View>
   );
 };
