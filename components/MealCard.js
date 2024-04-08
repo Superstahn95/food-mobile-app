@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Montserrat_400Regular",
     marginTop: 10,
+    textTransform: "capitalize",
   },
 });
 

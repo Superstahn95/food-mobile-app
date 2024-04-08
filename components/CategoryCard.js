@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontFamily: "Montserrat_400Regular",
+    textTransform: "capitalize",
   },
 });
 
