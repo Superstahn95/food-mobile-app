@@ -23,6 +23,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
 import MealScreen from "./screens/MealScreen";
 import CategoryScreen from "./screens/CategoryScreen";
+import CartScreen from "./screens/CartScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +74,11 @@ export default function App() {
             <Stack.Screen
               name="Category"
               component={CategoryScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Cart"
+              component={CartScreen}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

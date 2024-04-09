@@ -5,6 +5,7 @@ import Intro from "../components/Intro";
 import SearchFilter from "../components/SearchFilter";
 import Categories from "../components/Categories";
 import Meals from "../components/Meals";
+import CartIndicator from "../components/CartIndicator";
 
 const HomeScreen = () => {
   const { user } = useAuth();
@@ -20,6 +21,7 @@ const HomeScreen = () => {
       <Categories />
       {/* Meals component */}
       <Meals />
+      <CartIndicator />
     </SafeAreaView>
   );
 };

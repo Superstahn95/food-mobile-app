@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CategoryHeader from "../components/CategoryHeader";
 import axiosInstance from "../utils/axios";
 import MealCard from "../components/MealCard";
+import CartIndicator from "../components/CartIndicator";
 
 const CategoryScreen = ({ route, navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -62,6 +63,7 @@ const CategoryScreen = ({ route, navigation }) => {
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         />
       )}
+      <CartIndicator />
     </View>
   );
 };

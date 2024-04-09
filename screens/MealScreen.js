@@ -14,6 +14,7 @@ import { colors } from "../utils/constants";
 import axiosInstance from "../utils/axios";
 import Loader from "../components/Loader";
 import MealView from "../components/MealView";
+import CartIndicator from "../components/CartIndicator";
 
 const { height, width } = Dimensions.get("window");
 const MealScreen = ({ route, navigation }) => {
@@ -60,6 +61,7 @@ const MealScreen = ({ route, navigation }) => {
           {/* should have a button here to try refetching data */}
         </View>
       )}
+      <CartIndicator />
     </View>
   );
 };
