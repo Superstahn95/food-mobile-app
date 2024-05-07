@@ -7,20 +7,33 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { colors } from "../utils/constants";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 import AddToCart from "./AddToCart";
 import RemoveFromCart from "./RemoveFromCart";
+import AdjustQuantityControls from "./AdjustQuantityControls";
 
 const { height, width } = Dimensions.get("window");
-const MealView = ({ meal, quantity, setQuantity, navigation }) => {
+const MealView = ({ meal, navigation }) => {
+  const [quantity, setQuantity] = useState(1);
   const { cartItems } = useSelector((state) => state.cart);
   const isItemInCart = (itemId) => {
     return cartItems.some((item) => item._id === itemId);
   };
+  //get cart item
   const itemExistInCart = isItemInCart(meal._id);
+  const cartItem = cartItems.find((item) => item._id === meal._id);
+  const handleAbsentItemQuantity = (action) => {
+    if (action === "add") {
+      setQuantity((prev) => prev + 1);
+    }
+    if (action === "minus") {
+      setQuantity((prev) => prev - 1);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.mealImageContainer}>
@@ -52,17 +65,28 @@ const MealView = ({ meal, quantity, setQuantity, navigation }) => {
         >
           <Text style={styles.mealPrice}>{meal.price}</Text>
           {/* cart controls */}
-          <View style={styles.cartControls}>
-            <TouchableOpacity style={styles.addAndMinusButton}>
-              <AntDesign name="minus" size={24} color="white" />
-            </TouchableOpacity>
-            <View style={styles.quantity}>
-              <Text style={{ fontSize: 20 }}>{quantity}</Text>
+          {cartItem ? (
+            <AdjustQuantityControls id={meal._id} />
+          ) : (
+            <View style={styles.cartControls}>
+              <TouchableOpacity
+                onPress={() => handleAbsentItemQuantity("minus")}
+                style={styles.addAndMinusButton}
+                disabled={quantity === 1}
+              >
+                <AntDesign name="minus" size={24} color="white" />
+              </TouchableOpacity>
+              <View style={styles.quantity}>
+                <Text style={{ fontSize: 20 }}>{quantity}</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => handleAbsentItemQuantity("add")}
+                style={styles.addAndMinusButton}
+              >
+                <AntDesign name="plus" size={24} color="white" />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.addAndMinusButton}>
-              <AntDesign name="plus" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
+          )}
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionText}>
@@ -73,10 +97,14 @@ const MealView = ({ meal, quantity, setQuantity, navigation }) => {
         {/* get meals that belongs to the same category */}
       </View>
       {/* add  to cart or remove from cart  button component */}
-      {itemExistInCart ? (
-        <RemoveFromCart meal={meal} quantity={quantity} />
+      {cartItem ? (
+        <RemoveFromCart
+          meal={meal}
+          quantity={quantity}
+          setQuantity={setQuantity}
+        />
       ) : (
-        <AddToCart meal={meal} quantity={quantity} />
+        <AddToCart meal={meal} quantity={quantity} setQuantity={setQuantity} />
       )}
     </View>
   );

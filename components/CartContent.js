@@ -76,7 +76,7 @@ const CartContent = ({ item, simultaneousHandlers }) => {
             <Text style={styles.itemText}>{item.price}</Text>
           </View>
           <View style={{ marginRight: 5 }}>
-            <AdjustQuantityControls quantity={item.quantity} />
+            <AdjustQuantityControls id={item._id} />
           </View>
         </Animated.View>
       </Animated.View>

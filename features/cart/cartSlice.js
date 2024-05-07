@@ -30,18 +30,36 @@ const cartSlice = createSlice({
       );
       state.cartItems = updatedCart;
     },
-    updateItemQuantity: (state, action) => {
-      const { id, quantity } = action.payload;
-      const meal = state.cartItems.find((item) => item._id === id);
-      if (meal) {
-        meal.quantity = quantity;
-      }
+    increasItemQuantity: (state, action) => {
+      // const { id, quantity } = action.payload;
+      // const meal = state.cartItems.find((item) => item._id === id);
+      // if (meal) {
+      //   meal.quantity = quantity;
+      // }
+      const updatedCart = state.cartItems.map((item) =>
+        item._id === action.payload
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      state.cartItems = updatedCart;
+    },
+    decreaseItemQuantity: (state, action) => {
+      const updatedCart = state.cartItems.map((item) =>
+        item._id === action.payload
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
+      state.cartItems = updatedCart;
     },
   },
 });
 
-export const { addToCart, removeItemFromCart, updateItemQuantity } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeItemFromCart,
+  increasItemQuantity,
+  decreaseItemQuantity,
+} = cartSlice.actions;
 
 //selectors
 export const getCartTotal = (state) =>
@@ -49,4 +67,5 @@ export const getCartTotal = (state) =>
     (total, item) => (total += item.price * item.quantity),
     0
   );
+
 export default cartSlice.reducer;
