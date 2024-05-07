@@ -18,7 +18,6 @@ const LoginScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const { setUser, user } = useAuth();
   const handleLogin = async () => {
-    console.log(email, password);
     if (!email || !password) {
       return console.log("Fields cannot be blank");
     }
@@ -28,7 +27,6 @@ const LoginScreen = ({ navigation }) => {
         email,
         password,
       });
-      console.log(data);
       setUser(data.data.user);
       setLoading(false);
     } catch (error) {
@@ -44,7 +42,6 @@ const LoginScreen = ({ navigation }) => {
       navigation.navigate("Home");
     }
   }, [user]);
-  console.log(user);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>

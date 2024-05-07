@@ -1,17 +1,20 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import CartScreenHeader from "../components/CartScreenHeader";
 import CartContent from "../components/CartContent";
 import CartTotal from "../components/CartTotal";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
+import { useRef } from "react";
 
 const CartScreen = ({ navigation }) => {
   const { cartItems } = useSelector((state) => state.cart);
+  const scrollRef = useRef(null);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <CartScreenHeader navigation={navigation} />
-        <ScrollView style={styles.cartContent}>
+        <ScrollView ref={scrollRef} style={styles.cartContent}>
           {cartItems.map((item) => (
             <CartContent key={item._id} item={item} />
           ))}

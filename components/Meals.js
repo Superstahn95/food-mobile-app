@@ -1,6 +1,5 @@
 import { View, Text, ScrollView, FlatList, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
-import { meals } from "../assets/data";
 import MealCard from "./MealCard";
 import axiosInstance from "../utils/axios";
 

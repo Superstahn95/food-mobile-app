@@ -14,7 +14,7 @@ const CONTAINER_HEIGHT = 100; //will make this dynamic later for responsiveness 
 const { width: screenWidth } = Dimensions.get("window");
 const THRESHOLD_X = -screenWidth * 0.3;
 
-const CartContent = ({ item }) => {
+const CartContent = ({ item, simultaneousHandlers }) => {
   const dispatch = useDispatch();
   const translateX = useSharedValue(0);
   const opacity = useSharedValue(1);
@@ -32,6 +32,7 @@ const CartContent = ({ item }) => {
       if (shouldDelete) {
         translateX.value = withTiming(-screenWidth);
         itemHeight.value = withTiming(0);
+        marginBottom.value = withTiming(0);
         opacity.value = withTiming(0, undefined, (finished) => {
           console.log(finished);
           if (finished) {
