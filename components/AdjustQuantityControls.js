@@ -6,7 +6,6 @@ import {
   increasItemQuantity,
   decreaseItemQuantity,
 } from "../features/cart/cartSlice";
-import { useState } from "react";
 
 const AdjustQuantityControls = ({ id }) => {
   const dispatch = useDispatch();
@@ -24,13 +23,13 @@ const AdjustQuantityControls = ({ id }) => {
     <View style={styles.cartControls}>
       <TouchableOpacity
         style={styles.addAndMinusButton}
-        disabled={cartItem.quantity === 1}
+        disabled={cartItem?.quantity === 1}
         onPress={handleDecrease}
       >
         <AntDesign name="minus" size={20} color="white" />
       </TouchableOpacity>
       <View style={styles.quantity}>
-        <Text style={{ fontSize: 20 }}>{cartItem.quantity}</Text>
+        <Text style={{ fontSize: 20 }}>{cartItem?.quantity}</Text>
       </View>
       <TouchableOpacity
         style={styles.addAndMinusButton}
