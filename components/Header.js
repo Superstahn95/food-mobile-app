@@ -2,11 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../utils/constants";
 
-const Header = ({ text }) => {
+const Header = ({ text, navigation }) => {
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>Hi Joel</Text>
-      <TouchableOpacity style={styles.iconWrapper}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Profile")}
+        style={styles.iconWrapper}
+      >
         <AntDesign name="user" size={30} color={colors.COLOR_PRIMARY} />
       </TouchableOpacity>
     </View>

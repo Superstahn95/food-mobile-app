@@ -3,20 +3,23 @@ import { useSelector } from "react-redux";
 import CartScreenHeader from "../components/CartScreenHeader";
 import CartContent from "../components/CartContent";
 import CartTotal from "../components/CartTotal";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const CartScreen = ({ navigation }) => {
   const { cartItems } = useSelector((state) => state.cart);
   return (
-    <View style={styles.container}>
-      <CartScreenHeader navigation={navigation} />
-      <ScrollView style={styles.cartContent}>
-        {cartItems.map((item) => (
-          <CartContent key={item._id} item={item} />
-        ))}
-      </ScrollView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <CartScreenHeader navigation={navigation} />
+        <ScrollView style={styles.cartContent}>
+          {cartItems.map((item) => (
+            <CartContent key={item._id} item={item} />
+          ))}
+        </ScrollView>
 
-      <CartTotal />
-    </View>
+        <CartTotal />
+      </View>
+    </GestureHandlerRootView>
   );
 };
 
