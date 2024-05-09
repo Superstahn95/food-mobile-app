@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { getCartTotal } from "../features/cart/cartSlice";
 import { colors } from "../utils/constants";
 
-const CartTotal = ({ pay, setPay }) => {
+const CartTotal = ({ navigation }) => {
   const total = useSelector(getCartTotal);
   return (
     <View style={styles.container}>
@@ -26,7 +26,10 @@ const CartTotal = ({ pay, setPay }) => {
           <Text style={styles.text}>Total</Text>
           <Text style={styles.text}>{total}</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => setPay(true)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Checkout")}
+        >
           <Text style={styles.buttonText}>Proceed to checkout</Text>
         </TouchableOpacity>
       </View>

@@ -14,7 +14,7 @@ import {
   Montserrat_700Bold,
   Montserrat_300Light,
 } from "@expo-google-fonts/montserrat";
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import AuthProvider from "./context/auth";
@@ -25,6 +25,8 @@ import HomeScreen from "./screens/HomeScreen";
 import MealScreen from "./screens/MealScreen";
 import CategoryScreen from "./screens/CategoryScreen";
 import CartScreen from "./screens/CartScreen";
+import CheckoutScreen from "./screens/CheckoutScreen";
+import CheckoutSuccess from "./screens/CheckoutSuccess";
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +82,16 @@ export default function App() {
             <Stack.Screen
               name="Cart"
               component={CartScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Checkout"
+              component={CheckoutScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CheckoutSuccess"
+              component={CheckoutSuccess}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

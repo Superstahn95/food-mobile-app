@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Text } from "react-native";
+import { SafeAreaView } from "react-native";
 import useAuth from "../hooks/auth";
 import Header from "../components/Header";
 import Intro from "../components/Intro";

@@ -26,27 +26,8 @@ const CartScreen = ({ navigation }) => {
           ))}
         </ScrollView>
 
-        <CartTotal pay={pay} setPay={setPay} />
+        <CartTotal navigation={navigation} />
       </View>
-      {pay && (
-        <Paystack
-          paystackKey="pk_test_1d093c2e1efe03deeb6a267b209ffa2baefb640f"
-          amount={total}
-          billingEmail={user.email}
-          billingMobile={user.number}
-          activityIndicatorColor="green"
-          autoStart={pay}
-          onSuccess={(response) => {
-            console.log(response);
-            setPay(false);
-          }}
-          onCancel={(response) => {
-            console.log("check error below");
-            console.log(response);
-            setPay(false);
-          }}
-        />
-      )}
     </GestureHandlerRootView>
   );
 };
@@ -64,3 +45,26 @@ const styles = StyleSheet.create({
 });
 
 export default CartScreen;
+
+//refernce this while trying to place the order
+
+// export const orderSchema = {
+//   placeOrder: Joi.object({
+//     deliveryInfo: Joi.object()
+//       .keys({
+//         deliveryAddress: Joi.string().required,
+//         phoneNumber: Joi.string().required(),
+//         deliveryAddressNumber: Joi.string().required(),
+//       })
+//       .required(),
+//     orderedMeals: Joi.array().items(orderedMealSchema),
+//     totalAmount: Joi.number().required(),
+//     paymentReference: Joi.string()
+//       .required()
+//       .message("You need to make a payment first"),
+//   }),
+// };
+// const orderedMealSchema = Joi.object({
+//   quantity: Joi.number().integer().min(1).required(),
+//   meal: Joi.string().required(),
+// });

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
   Text,
@@ -23,10 +24,12 @@ const LoginScreen = ({ navigation }) => {
     }
     setLoading(true);
     try {
-      const { data } = await axiosInstance.post("auth/login", {
+      const { data } = await axiosInstance.post("auth/mobile/login", {
         email,
         password,
       });
+      const { token } = data.data;
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
       setUser(data.data.user);
       setLoading(false);
     } catch (error) {

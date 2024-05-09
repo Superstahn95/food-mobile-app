@@ -12,7 +12,6 @@ const Meals = () => {
       setLoading(true);
       try {
         const { data } = await axiosInstance.get("meal");
-        console.log("dishes fetched from backend");
         setDishes(data.data);
         setLoading(false);
       } catch (error) {
