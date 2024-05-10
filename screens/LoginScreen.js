@@ -8,20 +8,31 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ScrollView,
+  Button,
 } from "react-native";
 import Loader from "../components/Loader";
+import { Formik, Field } from "formik";
+import * as yup from "yup";
 import axiosInstance from "../utils/axios";
 import useAuth from "../hooks/auth";
+import AuthErrorComponent from "../components/AuthErrorComponent";
+import CustomInput from "../components/CustomInput";
 
 const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const { setUser, user } = useAuth();
-  const handleLogin = async () => {
-    if (!email || !password) {
-      return console.log("Fields cannot be blank");
-    }
+  const initialValues = { email: "", password: "" };
+  const loginSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup.string().required("Enter password"),
+  });
+  const handleLogin = async (data) => {
+    const { email, password } = data;
     setLoading(true);
     try {
       const { data } = await axiosInstance.post("auth/mobile/login", {
@@ -34,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      setErrorMsg(error.response.data.message);
       // handle error in a better way
       //   error.response.data.message to access the error message from my backend
     }
@@ -55,39 +66,41 @@ const LoginScreen = ({ navigation }) => {
         {/* <Text>What do we have here today</Text> */}
       </View>
       <Text style={styles.welcomeText}>Welcome Back!</Text>
-
-      <View style={styles.formContainer}>
-        <Text style={styles.formText}>Email Address</Text>
-        <TextInput
-          style={styles.formInput}
-          onChangeText={(text) => setEmail(text)}
-        />
-      </View>
-      <View style={styles.formContainer}>
-        <Text style={styles.formText}>Password</Text>
-        <TextInput
-          style={styles.formInput}
-          onChangeText={(text) => setPassword(text)}
-        />
-      </View>
-      <TouchableOpacity onPress={handleLogin} style={styles.formButton}>
-        <Text style={styles.formButtonText}>Log in</Text>
-      </TouchableOpacity>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={loginSchema}
+        onSubmit={(values) => handleLogin(values)}
+      >
+        {({ handleSubmit, isValid }) => (
+          <>
+            <View style={styles.formContainer}>
+              <Text style={styles.formText}>Email Address</Text>
+              <Field component={CustomInput} name="email" />
+            </View>
+            <View style={styles.formContainer}>
+              <Text style={styles.formText}>Password</Text>
+              <Field component={CustomInput} name="password" secureTextEntry />
+            </View>
+            <TouchableOpacity
+              disabled={!isValid}
+              onPress={handleSubmit}
+              style={styles.formButton}
+            >
+              <Text style={styles.formButtonText}>Log in</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </Formik>
       <View style={styles.instructionWrapper}>
         <Text style={styles.instruction}>Don't have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text style={styles.signUpText}>Sign up</Text>
         </TouchableOpacity>
       </View>
-      {/* to be removed when app is further worked on */}
-      {/* <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={{ marginTop: 20, backgroundColor: "yellow" }}
-      >
-        <Text>Temporary click action to home screen!!</Text>
-        <Text>{user?.firstName}</Text>
-      </TouchableOpacity> */}
       {loading && <Loader text={"Authenticating"} />}
+      {errorMsg && (
+        <AuthErrorComponent errorMsg={errorMsg} setErrorMsg={setErrorMsg} />
+      )}
     </SafeAreaView>
   );
 };
