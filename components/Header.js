@@ -5,7 +5,7 @@ import { colors } from "../utils/constants";
 const Header = ({ text, navigation }) => {
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>Hi Joel</Text>
+      <Text style={styles.headerText}>Hi {text}</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate("Profile")}
         style={styles.iconWrapper}
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: "Montserrat_700Bold",
     fontSize: 20,
+    textTransform: "capitalize",
   },
   iconWrapper: {
     borderWidth: 1,

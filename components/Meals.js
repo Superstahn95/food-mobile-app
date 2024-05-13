@@ -55,6 +55,8 @@ const Meals = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    // marginBottom: 200,
+    // backgroundColor: "green",
   },
 });
 

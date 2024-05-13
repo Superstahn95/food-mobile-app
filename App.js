@@ -27,6 +27,7 @@ import CategoryScreen from "./screens/CategoryScreen";
 import CartScreen from "./screens/CartScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import CheckoutSuccess from "./screens/CheckoutSuccess";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -92,6 +93,11 @@ export default function App() {
             <Stack.Screen
               name="CheckoutSuccess"
               component={CheckoutSuccess}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={ProfileScreen}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

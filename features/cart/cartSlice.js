@@ -51,6 +51,10 @@ const cartSlice = createSlice({
       );
       state.cartItems = updatedCart;
     },
+    resetCart: (state) => {
+      const newCart = [];
+      state.cartItems = newCart;
+    },
   },
 });
 
@@ -59,6 +63,7 @@ export const {
   removeItemFromCart,
   increasItemQuantity,
   decreaseItemQuantity,
+  resetCart,
 } = cartSlice.actions;
 
 //selectors

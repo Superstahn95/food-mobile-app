@@ -1,5 +1,13 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Skeleton } from "moti/skeleton";
+import Animated from "react-native-reanimated";
+
+const SkeletonCommonProps = {
+  colorMode: "light",
+  backgroundColor: "#D4D4D4",
+  transition: { type: "timing", duration: 2000 },
+};
 
 //handle responsiveness on the meal card
 const MealCard = ({ meal, index }) => {
@@ -13,15 +21,27 @@ const MealCard = ({ meal, index }) => {
         index % 2 === 0 ? styles.marginRight : styles.marginLeft,
       ]}
     >
-      {/* "../assets/images/rice.jpg" */}
+      {/* <Skeleton
+        show
+        width={"100%"}
+        height={200}
+        colorMode="light"
+        backgroundColor="#D4D4D4"
+        transition={{ type: "timing", duration: 2000 }}
+      > */}
       <Image
         source={{
           uri: meal.mealImage,
         }}
         style={styles.cardImage}
       />
+      {/* </Skeleton> */}
+      {/* <Skeleton> */}
       <Text style={styles.cardText}>{meal?.name}</Text>
+      {/* </Skeleton> */}
+      {/* <Skeleton> */}
       <Text style={styles.cardText}>{meal?.price}</Text>
+      {/* </Skeleton> */}
     </TouchableOpacity>
   );
 };

@@ -16,15 +16,9 @@ import Loader from "../components/Loader";
 import AuthErrorComponent from "../components/AuthErrorComponent";
 import CustomInput from "../components/CustomInput";
 
-// form inputs are to be replaced with formik
-
 const RegisterScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const registerSchema = yup.object().shape({
     email: yup
       .string()

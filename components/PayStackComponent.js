@@ -1,8 +1,8 @@
 import { View, Text } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Paystack } from "react-native-paystack-webview";
 import useAuth from "../hooks/auth";
-import { getCartTotal } from "../features/cart/cartSlice";
+import { getCartTotal, resetCart } from "../features/cart/cartSlice";
 import axiosInstance from "../utils/axios";
 import axios from "axios";
 
@@ -19,6 +19,7 @@ const PayStackComponent = ({
   const { cartItems } = useSelector((state) => state.cart);
   const totalAmount = useSelector(getCartTotal);
   const { user } = useAuth();
+  const dispatch = useDispatch();
   //map through cart items and return ordered items
   const orderedMeals = cartItems.map((item) => ({
     meal: item._id,
@@ -40,6 +41,7 @@ const PayStackComponent = ({
       const { data } = await axiosInstance.post("order", orderData);
       setLoading(false);
       console.log("order has been sent to backend");
+      dispatch(resetCart());
       navigation.navigate("CheckoutSuccess");
     } catch (error) {
       console.log(error);

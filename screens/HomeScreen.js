@@ -7,12 +7,12 @@ import Categories from "../components/Categories";
 import Meals from "../components/Meals";
 import CartIndicator from "../components/CartIndicator";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { user } = useAuth();
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {/* header component */}
-      <Header text={user?.firstName} />
+      <Header text={user?.firstName} navigation={navigation} />
       {/* intro component */}
       <Intro />
       {/* Search filter */}

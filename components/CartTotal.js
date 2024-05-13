@@ -1,15 +1,9 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 import { getCartTotal } from "../features/cart/cartSlice";
 import { colors } from "../utils/constants";
 
-const CartTotal = ({ navigation }) => {
+const CartTotal = ({ navigation, clickable }) => {
   const total = useSelector(getCartTotal);
   return (
     <View style={styles.container}>
@@ -27,6 +21,7 @@ const CartTotal = ({ navigation }) => {
           <Text style={styles.text}>{total}</Text>
         </View>
         <TouchableOpacity
+          disabled={!clickable}
           style={styles.button}
           onPress={() => navigation.navigate("Checkout")}
         >

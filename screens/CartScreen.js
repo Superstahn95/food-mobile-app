@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 import { Paystack } from "react-native-paystack-webview";
 import CartScreenHeader from "../components/CartScreenHeader";
@@ -9,6 +9,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useRef, useState } from "react";
 import useAuth from "../hooks/auth";
 import { getCartTotal } from "../features/cart/cartSlice";
+import { colors } from "../utils/constants";
 
 const CartScreen = ({ navigation }) => {
   const [pay, setPay] = useState(false);
@@ -21,12 +22,22 @@ const CartScreen = ({ navigation }) => {
       <View style={styles.container}>
         <CartScreenHeader navigation={navigation} />
         <ScrollView ref={scrollRef} style={styles.cartContent}>
-          {cartItems.map((item) => (
-            <CartContent key={item._id} item={item} />
-          ))}
+          {cartItems.length < 1 ? (
+            <View style={styles.emptyCart}>
+              <Text style={styles.emptyText}>No meals in cart</Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Home")}
+              >
+                <Text style={styles.buttonText}>Go add some meals</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            cartItems.map((item) => <CartContent key={item._id} item={item} />)
+          )}
         </ScrollView>
 
-        <CartTotal navigation={navigation} />
+        <CartTotal navigation={navigation} clickable={cartItems.length > 0} />
       </View>
     </GestureHandlerRootView>
   );
@@ -37,6 +48,26 @@ const styles = StyleSheet.create({
     flex: 1,
     // just added
     backgroundColor: "#E2E8F0",
+  },
+  emptyCart: {
+    flex: 1,
+    height: 300,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyText: {
+    fontSize: 20,
+    fontFamily: "Montserrat_400Regular",
+  },
+  button: {
+    backgroundColor: colors.COLOR_PRIMARY,
+    marginTop: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    padding: 10,
+    fontFamily: "Montserrat_700Bold",
   },
   cartContent: {
     padding: 10,
